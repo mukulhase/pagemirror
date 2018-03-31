@@ -14,6 +14,7 @@
 
 var observer;
 
+console.log('<page_mirrored>')
 chrome.extension.onConnect.addListener(function(port) {
   port.postMessage({ base: location.href.match(/^(.*\/)[^\/]*$/)[1] });
 
@@ -34,6 +35,7 @@ chrome.extension.onConnect.addListener(function(port) {
   });
 
   port.onDisconnect.addListener(function() {
+    console.log('<mirror_client_disconnected>');
     mirrorClient.disconnect();
   });
 });

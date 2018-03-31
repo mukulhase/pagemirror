@@ -27,39 +27,45 @@ window.addEventListener('DOMContentLoaded', function() {
   if (isNaN(tabId))
     return;
 
-  while (document.firstChild) {
-    document.removeChild(document.firstChild);
-  }
+  function call_page(){
 
-  var base;
-
-  var mirror = new TreeMirror(document, {
-    createElement: function(tagName) {
-      if (tagName == 'SCRIPT') {
-        var node = document.createElement('NO-SCRIPT');
-        node.style.display = 'none';
-        return node;
-      }
-
-      if (tagName == 'HEAD') {
-        var node = document.createElement('HEAD');
-        node.appendChild(document.createElement('BASE'));
-        node.firstChild.href = base;
-        return node;
-      }
+    while (document.firstChild) {
+      document.removeChild(document.firstChild);
     }
-  });
+  
+    var base;
+  
+    var mirror = new TreeMirror(document, {
+      createElement: function(tagName) {
+        if (tagName == 'SCRIPT') {
+          var node = document.createElement('NO-SCRIPT');
+          node.style.display = 'none';
+          return node;
+        }
+  
+        if (tagName == 'HEAD') {
+          var node = document.createElement('HEAD');
+          node.appendChild(document.createElement('BASE'));
+          node.firstChild.href = base;
+          return node;
+        }
+      }
+    });
 
-  var port = chrome.tabs.connect(tabId);
+    var port = chrome.tabs.connect(tabId);
 
-  port.onMessage.addListener(function(msg) {
-    if (msg.base)
-      base = msg.base;
-    else
-      mirror[msg.f].apply(mirror, msg.args);
-  });
-
-  port.onDisconnect.addListener(function(msg) {
-    window.close();
-  });
+    port.onMessage.addListener(function(msg) {
+      if (msg.base)
+        base = msg.base;
+      else
+        mirror[msg.f].apply(mirror, msg.args);
+    });
+  
+    port.onDisconnect.addListener(function(msg) {
+      console.log('<mirror_server_diconnected>');
+      call_page();
+      // window.close();
+    });
+  }
+  call_page();
 });
