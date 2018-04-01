@@ -34,15 +34,7 @@ var TreeMirror = (function () {
 
         });
         var iDiv = document.createElement('div');
-          iDiv.innerHTML = "HELOOOOOOOOOO";
-          $(iDiv).css({
-            "position": "absolute",
-            "width": "100%",
-            "height": "100%",
-            "z-index": "9000",
-            "background-color": "rgba(1,1,1,0.5)",
-            "top": 0
-          });
+        
         var cbox = document.createElement('div');
           cbox.id = 'cbox';
           $("#cbox").chatbox({id : "chat_div",
