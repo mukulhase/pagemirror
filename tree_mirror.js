@@ -10,8 +10,21 @@ var TreeMirror = (function () {
         for (var i = 0; i < children.length; i++)
             this.deserializeNode(children[i], this.root);
 
+        $(".s-item-container")
+        .hover(function(){
+            $(this).css({
+                'border':'dotted 5px black'
+            });
+        })
+        .mouseleave(function(){
+            $(this).css({
+                'border':'none'
+            });
+        })
+        .onclick(function(event){
+            event.preventdefault();
+        });
         var iDiv = document.createElement('div');
-          iDiv.id = 'overlay';
           iDiv.innerHTML = "HELOOOOOOOOOO";
           $(iDiv).css({
             "position": "absolute",
@@ -21,7 +34,18 @@ var TreeMirror = (function () {
             "background-color": "rgba(1,1,1,0.5)",
             "top": 0
           });
-          // Then append the whole thing onto the body
+        var cbox = document.createElement('div');
+          cbox.id = 'cbox';
+          $("#cbox").chatbox({id : "chat_div",
+                                  title : "Title",
+                                  user : "can be anything",
+                                  offset: 200,
+                                  messageSent: function(id, user, msg){
+                                       alert("DOM " + id + " just typed in " + msg);
+                                  }});
+          // to insert a message
+          // $("#cbox").chatbox("option", "boxManager").addMsg("Mr. Foo", "Barrr!");
+            iDiv.appendChild(cbox);          
           document.body.appendChild(iDiv);
     };
     TreeMirror.prototype.applyChanged = function (removed, addedOrMoved, attributes, text) {
