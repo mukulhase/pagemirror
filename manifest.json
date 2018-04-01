@@ -4,7 +4,7 @@
   "manifest_version": 2,
   "description": "A Demonstration of miroring an entire document using DOM Mutation Observers and the Mutation Summary JavaScript library.",
   "icons": { "128": "icon_128.png" },
-  "permissions": ["http://*/*", "https://*/*", "tabs"],
+  "permissions": ["http://*/*", "https://*/*", "tabs", "contextMenus"],
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],

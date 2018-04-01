@@ -21,8 +21,17 @@ var TreeMirror = (function () {
                 'border':'none'
             });
         })
-        .onclick(function(event){
-            event.preventdefault();
+        // .onclick(function(event){
+        //     event.preventdefault();
+        // })
+        .mousedown(function(event){
+            if(event.which == 3 ){
+                $(this).css({
+                    'background-color': 'green'
+                });
+                SendSelection($(".s-item-container").index(this));
+            }
+
         });
         var iDiv = document.createElement('div');
           iDiv.innerHTML = "HELOOOOOOOOOO";
@@ -47,7 +56,7 @@ var TreeMirror = (function () {
           // $("#cbox").chatbox("option", "boxManager").addMsg("Mr. Foo", "Barrr!");
             iDiv.appendChild(cbox);          
           document.body.appendChild(iDiv);
-    };
+            }
     TreeMirror.prototype.applyChanged = function (removed, addedOrMoved, attributes, text) {
         var _this = this;
         // NOTE: Applying the changes can result in an attempting to add a child

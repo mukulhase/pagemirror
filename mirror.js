@@ -39,18 +39,14 @@ window.addEventListener('DOMContentLoaded', function() {
       createElement: function(tagName) {
         if (tagName == 'SCRIPT') {
           var node = document.createElement('NO-SCRIPT');
-          node.style.display = 'none';
-          console.log(node);
-          
+          node.style.display = 'none';          
           return node;
         }
   
         if (tagName == 'HEAD') {
           var node = document.createElement('HEAD');
           node.appendChild(document.createElement('BASE'));
-          node.firstChild.href = base;
-          console.log(node);
-          
+          node.firstChild.href = base;          
           return node;
         }
       }
@@ -70,8 +66,18 @@ window.addEventListener('DOMContentLoaded', function() {
       call_page();
       // window.close();
     });
+
+    window.port = port;
   }
 
   call_page();
 
 });
+
+function SendSelection(x){
+  window.port.postMessage({
+        'action': 'select',
+        'value': x
+      });
+  
+}

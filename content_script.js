@@ -14,8 +14,10 @@
 
 var observer;
 
-console.log('<page_mirrored>')
+console.log('<page_mirrored>') 
+
 chrome.extension.onConnect.addListener(function(port) {
+
   port.postMessage({ base: location.href.match(/^(.*\/)[^\/]*$/)[1] });
 
   var mirrorClient = new TreeMirrorClient(document, {
@@ -31,11 +33,20 @@ chrome.extension.onConnect.addListener(function(port) {
         f: 'applyChanged',
         args: [removed, addedOrMoved, attributes, text]
       });
+
     }
+
   });
 
   port.onDisconnect.addListener(function() {
     console.log('<mirror_client_disconnected>');
     mirrorClient.disconnect();
   });
+
+  port.onMessage.addListener(function(msg) {
+    if (msg['action']="select"){
+      console.log(parseInt(msg['value']));
+      document.querySelectorAll(".s-item-container")[parseInt(msg['value'])].style.backgroundColor = "green";
+    }
+    });
 });
