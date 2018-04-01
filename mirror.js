@@ -40,6 +40,8 @@ window.addEventListener('DOMContentLoaded', function() {
         if (tagName == 'SCRIPT') {
           var node = document.createElement('NO-SCRIPT');
           node.style.display = 'none';
+          console.log(node);
+          
           return node;
         }
   
@@ -47,6 +49,8 @@ window.addEventListener('DOMContentLoaded', function() {
           var node = document.createElement('HEAD');
           node.appendChild(document.createElement('BASE'));
           node.firstChild.href = base;
+          console.log(node);
+          
           return node;
         }
       }
@@ -67,5 +71,7 @@ window.addEventListener('DOMContentLoaded', function() {
       // window.close();
     });
   }
+
   call_page();
+
 });

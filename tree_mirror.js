@@ -9,6 +9,20 @@ var TreeMirror = (function () {
         this.idMap[rootId] = this.root;
         for (var i = 0; i < children.length; i++)
             this.deserializeNode(children[i], this.root);
+
+        var iDiv = document.createElement('div');
+          iDiv.id = 'overlay';
+          iDiv.innerHTML = "HELOOOOOOOOOO";
+          $(iDiv).css({
+            "position": "absolute",
+            "width": "100%",
+            "height": "100%",
+            "z-index": "9000",
+            "background-color": "rgba(1,1,1,0.5)",
+            "top": 0
+          });
+          // Then append the whole thing onto the body
+          document.body.appendChild(iDiv);
     };
     TreeMirror.prototype.applyChanged = function (removed, addedOrMoved, attributes, text) {
         var _this = this;
